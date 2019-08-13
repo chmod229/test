@@ -1,0 +1,39 @@
+UserManageService#updatedUser()
+
+ if (roleId != 0){
+            user.setIfAdmin(AdminUserInfo.DEFAULT_NOT_ADMIN);
+        }else
+        {
+            user.setIfAdmin(AdminUserInfo.DEFAULT_IS_ADMIN);
+        }
+
+管理员roleId为10009，roleId判断存在问题
+
+
+====================================
+
+UserManageController#updatedUser()
+
+String str= "用户["+user.getUserName()+"]修改了用户["+request.getParameter("username")+"]信息";
+ogInfoService.addLogInfo(user.getUserName(),LogInfo.LOG_UPDATEUSER,str);
+
+request提交参数无username项，存入loginfo表中的operateContent字段数据的username始终为null
+
+
+====================================
+
+UserManageController#changeUser()
+String str= "用户["+user.getUserName()+"]更新了用户["+request.getParameter("userName")+"]状态";
+logInfoService.addLogInfo(user.getUserName(),LogInfo.LOG_UPDATESTATUS,str);
+
+request提交参数无userName项，存入loginfo表中的operateContent字段数据的username始终为null
+
+====================================
+
+UserManageController#updatedStatus()
+
+String str= "用户["+user.getUserName()+"]删除了用户["+request.getParameter("username")+"]";
+logInfoService.addLogInfo(user.getUserName(),LogInfo.LOG_DELUSER,str);
+
+request提交参数无userName项，存入loginfo表中的operateContent字段数据的username始终为null
+
